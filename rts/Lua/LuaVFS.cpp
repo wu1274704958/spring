@@ -563,7 +563,7 @@ int LuaVFS::CalculateHash(lua_State* L)
 /******************************************************************************/
 /******************************************************************************/
 //
-//  NOTE: Endianess should be handled
+//  NOTE: Endianness should be handled
 //
 
 template <typename T>
