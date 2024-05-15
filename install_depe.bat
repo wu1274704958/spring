@@ -1,0 +1,1 @@
+vcpkg install sdl2 glew devil curl openal-soft libogg libvorbis

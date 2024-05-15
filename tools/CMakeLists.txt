@@ -7,7 +7,7 @@ if    (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/pr-downloader/CMakeLists.txt")
 	message(FATAL_ERROR "${CMAKE_CURRENT_SOURCE_DIR}/pr-downloader/ is missing, please run\n git submodule init && git submodule update")
 endif ()
 
-set(CMAKE_BUILD_TYPE "RELEASE")
+#set(CMAKE_BUILD_TYPE "RELEASE")
 set(CLEAR_COMPILER_FLAGS true)
 set(PRD_TESTS OFF CACHE BOOL "" FORCE)
 set(PRD_BINDIR ${BINDIR} CACHE PATH "" FORCE)

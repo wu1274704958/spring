@@ -288,24 +288,26 @@ ENDIF( SYSTEM_IRRXML )
 
 # Search for external dependencies, and build them from source if not found
 # Search for zlib
-# IF ( NOT ASSIMP_BUILD_ZLIB )
-    # find_package(ZLIB)
-# ENDIF( NOT ASSIMP_BUILD_ZLIB )
+IF ( NOT ASSIMP_BUILD_ZLIB )
+    find_package(ZLIB)
+ENDIF( NOT ASSIMP_BUILD_ZLIB )
 
-# IF( NOT ZLIB_FOUND )
-  # message(STATUS "compiling zlib from souces")
-  # INCLUDE(CheckIncludeFile)
-  # INCLUDE(CheckTypeSize)
-  # INCLUDE(CheckFunctionExists)
-  # # compile from sources
-  # add_subdirectory(contrib/zlib)
-  # SET(ZLIB_FOUND 1)
-  # SET(ZLIB_LIBRARIES zlibstatic)
-  # SET(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/contrib/zlib ${CMAKE_CURRENT_BINARY_DIR}/contrib/zlib)
-# else ()
-  # ADD_DEFINITIONS(-DASSIMP_BUILD_NO_OWN_ZLIB)
-  # SET(ZLIB_LIBRARIES_LINKED -lz)
-# ENDIF(NOT ZLIB_FOUND)
+ IF( NOT ZLIB_FOUND )
+    message(STATUS "compiling zlib from souces")
+    INCLUDE(CheckIncludeFile)
+    INCLUDE(CheckTypeSize)
+    INCLUDE(CheckFunctionExists)
+    # compile from sources
+    add_subdirectory(contrib/zlib)
+    SET(ZLIB_FOUND 1)
+    SET(ZLIB_LIBRARIES zlibstatic)
+    SET(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/contrib/zlib ${CMAKE_CURRENT_BINARY_DIR}/contrib/zlib)
+ else ()
+    message("assimp find zlib ${ZLIB_INCLUDE_DIR}")
+    include_directories(${ZLIB_INCLUDE_DIR} )
+    ADD_DEFINITIONS(-DASSIMP_BUILD_NO_OWN_ZLIB)
+    SET(ZLIB_LIBRARIES_LINKED -lz)
+ ENDIF(NOT ZLIB_FOUND)
 
 # Search for unzip
 # use_pkgconfig(UNZIP minizip)

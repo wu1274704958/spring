@@ -245,7 +245,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(SDL2 REQUIRED sdl2>=2)
 pkg_check_modules(OPENGL REQUIRED opengl)
 pkg_check_modules(GLEW REQUIRED glew>=1.5.1)
-pkg_check_modules(IL REQUIRED IL)
+pkg_check_modules(ILU REQUIRED ILU)
 
 
 if    (WIN32)
@@ -317,6 +317,24 @@ else()
 endif()
 
 message(STATUS "Compiling with C++17")
+if (MSVC)
+	if(NOT MINGWLIBS)
+		message("SVC AND NOT MINGWLIBS")
+		set(CXX17_FLAGS "/std:c++17")
+		add_definitions(-D_HAS_AUTO_PTR_ETC)
+		Set(TEST_FIND_LIB "zlib.lib")
+		if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+			Set(TEST_FIND_LIB "zlibd.lib")
+		endif()
+		find_library(TEST_FIND_LIB_PATH ${TEST_FIND_LIB})
+		get_filename_component(TEST_FIND_LIB_DIR ${TEST_FIND_LIB_PATH} DIRECTORY )
+		message("find library directory ${TEST_FIND_LIB_DIR}")
+		link_directories(${TEST_FIND_LIB_DIR})
+		find_library(IL_DEV_LIB "DevIL.lib")
+		link_libraries(${IL_DEV_LIB})
+	endif()
+endif(MSVC)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX17_FLAGS}")
 
 add_definitions(-D_GLIBCXX_USE_NANOSLEEP) # issue in std::chrono with gentoo and few other distros

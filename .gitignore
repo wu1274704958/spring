@@ -147,6 +147,9 @@ x64/
 *.sln
 *.db
 Spring.VC.VC.opendb
+/.vs/**
+/out/**
+
 
 # downloaded files
 /pool
