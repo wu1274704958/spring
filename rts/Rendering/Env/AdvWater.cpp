@@ -16,7 +16,7 @@
 
 CAdvWater::CAdvWater(bool refractive)
 {
-	uint8_t scrap[512 * 512 * 4];
+	uint8_t* scrap = new uint8_t[512 * 512 * 4];
 
 	glGenTextures(1, &reflectTexture);
 	glBindTexture(GL_TEXTURE_2D, reflectTexture);
@@ -139,6 +139,8 @@ CAdvWater::CAdvWater(bool refractive)
 	bumpFBO.Bind();
 	bumpFBO.AttachTexture(bumpmapTexture, GL_TEXTURE_2D, GL_COLOR_ATTACHMENT0);
 	FBO::Unbind();
+
+	delete[] scrap;
 
 	if (bumpFBO.IsValid())
 		return;
